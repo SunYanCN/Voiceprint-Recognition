@@ -1,0 +1,6 @@
+{
+    "optimizer":{"_type":"choice","_value":["Adam", "SGD"]},
+    "learning_rate":{"_type":"choice","_value":[0.0001, 0.001, 0.002, 0.005, 0.01]},
+    "batch_size":{"_type":"choice","_value":[64, 128, 256, 512]},
+    "dropout_rate":{"_type":"uniform","_value":[0.1,0.5]}
+}

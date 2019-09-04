@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="container">
+  <div class="jumbotron">
+    <div class="d-sm-flex justify-content-sm-center">
+      <h1>声纹识别</h1>
+    </div>
+    <div class="d-sm-flex justify-content-sm-around align-items-sm-center">
+      <p><a class="btn btn-lg btn-primary" href="enrollSpeaker" role="button">声纹注册</a></p>
+      <p><a class="btn btn-lg btn-success" id="trainButton" role="button">训练模型</a></p>
+      <p><a class="btn btn-lg btn-warning" href="recognizeSpeaker" role="button">声纹识别</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="pleaseWaitDialog" data-backdrop="static" data-keyboard="false" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Please wait...</h4>
+      </div>
+      <div class="modal-body">
+        <div class="progress">
+          <div class="progress-bar progress-bar-success progress-bar-animated progress-bar-striped active" role="progressbar"
+          aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; height: 40px">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $("#trainButton").click(function(){
+    showPleaseWait();
+    $.ajax({
+      url: '/trainModel',
+      type:'POST',
+      success: function(response){
+        hidePleaseWait();
+      },
+      failure: function(jqXHR, textStatus, errorThrown){
+          console.log(textStatus);
+      }
+    });    
+  });
+
+  function showPleaseWait() {
+    $("#pleaseWaitDialog").modal("show");
+  }
+
+  function hidePleaseWait() {
+    $("#pleaseWaitDialog").modal("hide");
+  }
+
+</script>
+
+{% endblock %}
