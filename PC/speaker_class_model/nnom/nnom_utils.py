@@ -821,7 +821,7 @@ class nnom:
         return fake_clip(frac_bit, bit)
 
     def fake_clip_min_max(self, output_layer_name, min=0, max=1,  bit=8):
-        self.shift_dict[output_layer_name] = bit - 1 - np.int(np.ceil(np.log2(np.max(abs(min), abs(max)))))
+        self.shift_dict[output_layer_name] = bit - 1 - int(np.ceil(np.log2(np.max(abs(min), abs(max)))))
         return fake_clip_min_max(min=min, max=max, bit=bit)
 
     def save_shift(self, file='output_shifts.npy'):
